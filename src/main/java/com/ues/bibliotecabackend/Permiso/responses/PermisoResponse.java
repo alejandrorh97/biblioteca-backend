@@ -1,7 +1,5 @@
-package com.ues.bibliotecabackend.Rol.responses;
+package com.ues.bibliotecabackend.Permiso.responses;
 
-import com.ues.bibliotecabackend.Permiso.responses.PermisoResponse;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class RolResponse {
+public class PermisoResponse {
   private Long id;
   private String nombre;
-  private List<PermisoResponse> permisos;
+  private String categoria;
 }

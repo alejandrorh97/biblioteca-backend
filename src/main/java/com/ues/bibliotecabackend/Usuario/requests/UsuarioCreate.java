@@ -1,6 +1,7 @@
 package com.ues.bibliotecabackend.Usuario.requests;
 
 import com.ues.bibliotecabackend.Usuario.Usuario;
+import com.ues.bibliotecabackend.global.rules.Unique;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ public class UsuarioCreate {
 
   @NotBlank(message = "El correo es requerido")
   @Email(message = "El correo debe ser válido")
+  @Unique(message = "El correo ya está en uso")
   private String correo;
 
   @NotBlank(message = "La contraseña es requerida")

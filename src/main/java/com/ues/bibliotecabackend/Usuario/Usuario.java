@@ -1,14 +1,9 @@
 package com.ues.bibliotecabackend.Usuario;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import com.ues.bibliotecabackend.Rol.Rol;
 import com.ues.bibliotecabackend.Usuario.responses.UsuarioResponse;
 import com.ues.bibliotecabackend.global.responses.BaseResponse;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,9 +11,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "usuarios")
@@ -32,6 +33,7 @@ public class Usuario implements UserDetails, BaseResponse<UsuarioResponse> {
   private Long id;
   private String nombre;
   private String apellido;
+  @Column(unique = true)
   private String correo;
   private String contrasena;
   private String telefono;
