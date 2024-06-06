@@ -1,8 +1,6 @@
 package com.ues.bibliotecabackend.Permiso;
 
-import com.ues.bibliotecabackend.Permiso.responses.PermisoResponse;
 import com.ues.bibliotecabackend.Rol.Rol;
-import com.ues.bibliotecabackend.global.responses.BaseResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,12 +19,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Permiso implements BaseResponse<PermisoResponse> {
+public class Permiso {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nombre;
-  private String categoria;
+
+  public Permiso(String nombre) {
+    this.nombre = nombre;
+  }
 
   @ManyToMany
   @JoinTable(
@@ -35,12 +36,4 @@ public class Permiso implements BaseResponse<PermisoResponse> {
   )
   private List<Rol> roles;
 
-  @Override
-  public PermisoResponse toResponse() {
-    return PermisoResponse.builder()
-        .id(this.id)
-        .nombre(this.nombre)
-        .categoria(this.categoria)
-        .build();
-  }
 }

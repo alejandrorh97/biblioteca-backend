@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ues.bibliotecabackend.Usuario.requests.UsuarioIndexRequest;
 import com.ues.bibliotecabackend.Usuario.requests.UsuarioUpdate;
+import com.ues.bibliotecabackend.Usuario.responses.UsuarioIndexResponse;
 import com.ues.bibliotecabackend.Usuario.responses.UsuarioResponse;
 import com.ues.bibliotecabackend.global.responses.DeleteResponse;
+import com.ues.bibliotecabackend.security.HasPermission;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +28,9 @@ public class UsuariosController {
   private final UsuarioService usuarioService;
 
   @GetMapping("/index")
-  public Page<UsuarioResponse> index(@Valid UsuarioIndexRequest request) throws Exception {
+  @HasPermission("usuarios_index")
+  public Page<UsuarioIndexResponse> index(@Valid UsuarioIndexRequest request) throws Exception {
+    System.out.println("INDEX");
     final Pageable paginacion = PageRequest.of(request.getPage(), request.getSize());
     return usuarioService.paginate(request.getBusqueda(), paginacion);
   }

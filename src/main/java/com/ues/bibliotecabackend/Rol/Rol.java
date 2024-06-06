@@ -2,9 +2,7 @@ package com.ues.bibliotecabackend.Rol;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ues.bibliotecabackend.Permiso.Permiso;
-import com.ues.bibliotecabackend.Rol.responses.RolResponse;
 import com.ues.bibliotecabackend.Usuario.Usuario;
-import com.ues.bibliotecabackend.global.responses.BaseResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rol implements BaseResponse<RolResponse> {
+public class Rol {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -41,19 +39,6 @@ public class Rol implements BaseResponse<RolResponse> {
     inverseJoinColumns = @JoinColumn(name = "id_permiso", referencedColumnName = "id")
   )
   private List<Permiso> permisos;
-
-  @Override
-  public RolResponse toResponse() {
-    return RolResponse.builder()
-        .id(this.id)
-        .nombre(this.nombre)
-        .permisos(
-          this.permisos != null
-            ? permisos.stream().map(Permiso::toResponse).toList()
-            : null
-        )
-        .build();
-  }
 
   public List<String> getPermisosAsList() {
     return this.permisos != null

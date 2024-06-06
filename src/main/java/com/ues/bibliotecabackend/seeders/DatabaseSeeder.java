@@ -11,11 +11,14 @@ public class DatabaseSeeder implements CommandLineRunner {
   private RolSeeder rolSeeder;
   @Autowired
   private UsuarioSeeder usuarioSeeder;
+  @Autowired
+  private PermisoSeeder permisoSeeder;
 
   @Override
   public void run(String... args) throws Exception {
     rolSeeder.run();
     usuarioSeeder.run();
+    permisoSeeder.run();
   }
 
 }

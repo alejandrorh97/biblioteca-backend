@@ -1,59 +1,52 @@
 package com.ues.bibliotecabackend.Usuario;
 
+import com.ues.bibliotecabackend.Usuario.responses.UsuarioIndexResponse;
+import com.ues.bibliotecabackend.Usuario.responses.UsuarioResponse;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.ues.bibliotecabackend.Usuario.responses.UsuarioResponse;
-import com.ues.bibliotecabackend.global.BasicService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioService implements BasicService<Usuario, UsuarioResponse> {
+public class UsuarioService {
   private final UsuarioRepository usuarioRepository;
 
-  @Override
   public List<UsuarioResponse> findAll(String busqueda) throws Exception {
     throw new UnsupportedOperationException("No se implementara por tamano de la tabla");
   }
 
-  @Override
-  public Page<UsuarioResponse> paginate(String busqueda, Pageable paginacion) throws Exception {
+  public Page<UsuarioIndexResponse> paginate(String busqueda, Pageable paginacion) throws Exception {
     try {
       Page<Usuario> usuarios = busqueda != null ? usuarioRepository.busqueda(busqueda, paginacion)
           : usuarioRepository.findAll(paginacion);
-      return usuarios.map(usuario -> usuario.toResponse());
+      return usuarios.map(UsuarioIndexResponse::new);
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
   }
 
-  @Override
   public UsuarioResponse findById(Long id) throws EntityNotFoundException {
-    return usuarioRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Usuario con id " + id + " no encontrado"))
-        .toResponse();
+    var usuario = usuarioRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Usuario con id " + id + " no encontrado"));
+    return new UsuarioResponse(usuario);
   }
 
-  @Override
   public Usuario findEntityById(Long id) throws EntityNotFoundException {
-    return usuarioRepository.findById(id)
+   return usuarioRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Usuario con id " + id + " no encontrado"));
   }
 
-  @Override
   public UsuarioResponse save(Usuario entity) throws Exception {
-    return usuarioRepository.save(entity).toResponse();
+    return new UsuarioResponse(usuarioRepository.save(entity));
   }
 
-  @Override
   public UsuarioResponse update(Usuario entity) throws EntityNotFoundException {
-    return usuarioRepository.save(entity).toResponse();
+    return new UsuarioResponse(usuarioRepository.save(entity));
   }
 
-  @Override
   public boolean delete(Long id) throws EntityNotFoundException {
     usuarioRepository.deleteById(id);
     return true;

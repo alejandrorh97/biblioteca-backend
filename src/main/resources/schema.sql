@@ -8,8 +8,7 @@ CREATE TABLE IF NOT EXISTS roles (
 -- Crear tabla permisos
 CREATE TABLE IF NOT EXISTS permisos (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR NOT NULL,
-    categoria VARCHAR NOT NULL
+    nombre VARCHAR NOT NULL
 );
 
 -- Crear tabla departamentos

@@ -1,8 +1,6 @@
 package com.ues.bibliotecabackend.Usuario;
 
 import com.ues.bibliotecabackend.Rol.Rol;
-import com.ues.bibliotecabackend.Usuario.responses.UsuarioResponse;
-import com.ues.bibliotecabackend.global.responses.BaseResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Usuario implements UserDetails, BaseResponse<UsuarioResponse> {
+public class Usuario implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +44,15 @@ public class Usuario implements UserDetails, BaseResponse<UsuarioResponse> {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    // TODO aqui va el rol y permisos
-    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    var permisos = rol.getPermisos();
+
+    if (permisos == null) {
+      return List.of();
+    }
+
+    return permisos.stream()
+        .map(permiso -> new SimpleGrantedAuthority(permiso.getNombre()))
+        .toList();
   }
 
   @Override
@@ -78,19 +83,5 @@ public class Usuario implements UserDetails, BaseResponse<UsuarioResponse> {
   @Override
   public boolean isEnabled() {
     return !eliminado;
-  }
-
-  @Override
-  public UsuarioResponse toResponse() {
-    return UsuarioResponse.builder()
-        .id(id)
-        .nombre(nombre)
-        .apellido(apellido)
-        .correo(correo)
-        .telefono(telefono)
-        .fechaRegistro(fechaRegistro)
-        .eliminado(eliminado)
-        .rol(rol.toResponse())
-        .build();
   }
 }

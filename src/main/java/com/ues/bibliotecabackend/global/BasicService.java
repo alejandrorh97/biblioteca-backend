@@ -6,18 +6,18 @@ import org.springframework.data.domain.Pageable;
 
 import jakarta.persistence.EntityNotFoundException;
 
-public interface BasicService<E, D> {
-  public List<D> findAll(String busqueda) throws Exception;
+public interface BasicService<E> {
+  public List<Object> findAll(String busqueda) throws Exception;
 
-  public Page<D> paginate(String busqueda, Pageable paginacion) throws Exception;
+  public Page<Object> paginate(String busqueda, Pageable paginacion) throws Exception;
 
-  public D findById(Long id) throws EntityNotFoundException;
+  public E findById(Long id) throws EntityNotFoundException;
 
   public E findEntityById(Long id) throws EntityNotFoundException;
 
-  public D save(E entity) throws Exception;
+  public E save(E entity) throws Exception;
 
-  public D update(E entity) throws EntityNotFoundException;
+  public E update(E entity) throws EntityNotFoundException;
 
   public boolean delete(Long id) throws EntityNotFoundException;
 }

@@ -1,18 +1,15 @@
 package com.ues.bibliotecabackend.Rol.responses;
 
-import com.ues.bibliotecabackend.Permiso.responses.PermisoResponse;
-import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.ues.bibliotecabackend.Rol.Rol;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
 public class RolResponse {
   private Long id;
   private String nombre;
-  private List<PermisoResponse> permisos;
+
+  public RolResponse(Rol rol) {
+    this.id = rol.getId();
+    this.nombre = rol.getNombre();
+  }
 }
