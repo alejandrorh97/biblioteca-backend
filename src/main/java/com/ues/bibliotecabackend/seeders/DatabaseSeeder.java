@@ -13,12 +13,15 @@ public class DatabaseSeeder implements CommandLineRunner {
   private UsuarioSeeder usuarioSeeder;
   @Autowired
   private PermisoSeeder permisoSeeder;
+  @Autowired
+  private RolesPermisosSeeder rolesPermisosSeeder;
 
   @Override
   public void run(String... args) throws Exception {
     rolSeeder.run();
     usuarioSeeder.run();
     permisoSeeder.run();
+    rolesPermisosSeeder.run();
   }
 
 }

@@ -24,13 +24,10 @@ public class PermisoSeeder {
 
   private List<Permiso> getPermisos() {
     List<Permiso> permisos = new ArrayList<>();
-    permisos.add(new Permiso("INDEX"));
-    permisos.add(new Permiso("CREATE"));
-    permisos.add(new Permiso("SHOW"));
-    permisos.add(new Permiso("UPDATE"));
-    permisos.add(new Permiso("DELETE"));
-    permisos.add(new Permiso("SELF"));
-    permisos.add(new Permiso("ALL"));
+    permisos.add(new Permiso("usuarios_index"));
+    permisos.add(new Permiso("usuarios_show"));
+    permisos.add(new Permiso("usuarios_update"));
+    permisos.add(new Permiso("usuarios_delete"));
     return permisos;
   }
 

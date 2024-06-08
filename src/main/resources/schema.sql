@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS roles_permisos (
     id SERIAL PRIMARY KEY,
     id_rol INT REFERENCES roles(id),
     id_permiso INT REFERENCES permisos(id),
-    CONSTRAINT fk_rol FOREIGN KEY (id_rol) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_permiso FOREIGN KEY (id_permiso) REFERENCES permisos(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    CONSTRAINT fk_rol FOREIGN KEY (id_rol) REFERENCES roles(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_permiso FOREIGN KEY (id_permiso) REFERENCES permisos(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Crear tabla ciudades

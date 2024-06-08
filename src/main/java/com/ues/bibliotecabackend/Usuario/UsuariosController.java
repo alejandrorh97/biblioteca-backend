@@ -36,11 +36,13 @@ public class UsuariosController {
   }
 
   @GetMapping("/show/{id}")
+  @HasPermission("usuarios_show")
   public UsuarioResponse show(@PathVariable Long id) throws Exception {
     return usuarioService.findById(id);
   }
 
   @PatchMapping("/update/{id}")
+  @HasPermission("usuarios_update")
   public UsuarioResponse update(@PathVariable Long id, @Valid @RequestBody UsuarioUpdate request) throws Exception {
     Usuario usuario = usuarioService.findEntityById(id);
     if (request.getNombre() != null) {
@@ -59,6 +61,7 @@ public class UsuariosController {
   }
 
   @DeleteMapping("/delete/{id}")
+  @HasPermission("usuarios_delete")
   public ResponseEntity<DeleteResponse> delete(@PathVariable Long id) throws Exception {
     usuarioService.delete(id);
     return ResponseEntity.ok(new DeleteResponse("Usuario eliminado correctamente"));

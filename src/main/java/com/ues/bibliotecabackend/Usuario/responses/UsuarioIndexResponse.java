@@ -9,7 +9,6 @@ public class UsuarioIndexResponse {
   private String nombre;
   private String apellido;
   private String correo;
-  private String telefono;
   private String rol;
   private Boolean eliminado;
 
@@ -18,7 +17,6 @@ public class UsuarioIndexResponse {
     this.nombre = usuario.getNombre();
     this.apellido = usuario.getApellido();
     this.correo = usuario.getCorreo();
-    this.telefono = usuario.getTelefono();
     this.rol = usuario.getRol().getNombre();
     this.eliminado = usuario.getEliminado();
   }
