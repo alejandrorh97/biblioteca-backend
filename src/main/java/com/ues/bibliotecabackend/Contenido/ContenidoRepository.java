@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContenidoRepository extends JpaRepository<Contenido, Long>, JpaSpecificationExecutor<Contenido> {
+  public boolean existsByTitulo(String titulo);
 
+  public Contenido findByTitulo(String titulo);
 }
