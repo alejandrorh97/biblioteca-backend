@@ -21,8 +21,8 @@ public class InventarioCreate {
 
   public Inventario toInventario() {
     Inventario inventario = new Inventario();
-    inventario.setUnidades_registradas(this.unidades_registradas);
-    inventario.setUnidades_disponibles(this.unidades_disponibles);
+    inventario.setUnidadesRegistradas(this.unidades_registradas);
+    inventario.setUnidadesDisponibles(this.unidades_disponibles);
     return inventario;
   }
 

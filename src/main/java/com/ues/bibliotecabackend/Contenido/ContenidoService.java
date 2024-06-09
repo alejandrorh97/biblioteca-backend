@@ -1,6 +1,5 @@
 package com.ues.bibliotecabackend.Contenido;
 
-
 import com.ues.bibliotecabackend.Contenido.responses.ContenidoResponse;
 import com.ues.bibliotecabackend.Contenido.responses.ContenidoIndexResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -8,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +19,11 @@ public class ContenidoService {
     throw new UnsupportedOperationException("No se implementara por tamano de la tabla");
   }
 
-  public Page<ContenidoIndexResponse> paginate(String busqueda, Pageable paginacion) throws Exception {
+  public Page<ContenidoIndexResponse> paginate(String busqueda, int categoria, Pageable paginacion) throws Exception {
     try {
-      Page<Contenido> contenidos = busqueda != null ? contenidoRepository.busqueda(busqueda, paginacion)
-          : contenidoRepository.findAll(paginacion);
-      return contenidos.map(ContenidoIndexResponse::new);
+      Specification<Contenido> especificacion = Specification.where(ContenidoSpec.withBusqueda(busqueda))
+          .and(ContenidoSpec.hasCategoria(categoria));
+      return contenidoRepository.findAll(especificacion, paginacion).map(ContenidoIndexResponse::new);
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
@@ -35,9 +35,8 @@ public class ContenidoService {
     return new ContenidoResponse(contenido);
   }
 
-  
   public Contenido findEntityById(Long id) throws EntityNotFoundException {
-   return contenidoRepository.findById(id)
+    return contenidoRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Contenido con id " + id + " no encontrado"));
   }
 

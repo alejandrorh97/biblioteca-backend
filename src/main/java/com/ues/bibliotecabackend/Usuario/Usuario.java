@@ -1,5 +1,6 @@
 package com.ues.bibliotecabackend.Usuario;
 
+import com.ues.bibliotecabackend.Falta.Falta;
 import com.ues.bibliotecabackend.Rol.Rol;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.Date;
@@ -41,6 +43,9 @@ public class Usuario implements UserDetails {
   @ManyToOne
   @JoinColumn(name = "id_rol")
   private Rol rol;
+
+  @OneToMany(mappedBy = "usuario")
+  private List<Falta> faltas;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

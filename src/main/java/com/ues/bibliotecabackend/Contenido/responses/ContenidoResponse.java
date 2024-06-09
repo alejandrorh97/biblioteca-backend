@@ -15,23 +15,22 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class ContenidoResponse {
-    private long Id;
-    private int id_categoria;
-    private String titulo;
-    private String autor;
-    private String genero;
-    private String publicador;
-    @Builder.Default
-    private Date fechaPublicacion = new Date();
-    private String isbn;
-    private String idioma;
-    private String rutaImagen;
-    @Builder.Default
-    private Boolean prestable = false;
+  private long Id;
+  private int id_categoria;
+  private String titulo;
+  private String autor;
+  private String genero;
+  private String publicador;
+  @Builder.Default
+  private Date fechaPublicacion = new Date();
+  private String isbn;
+  private String idioma;
+  private String rutaImagen;
+  @Builder.Default
+  private Boolean prestable = false;
 
-    public ContenidoResponse(Contenido contenido) {
+  public ContenidoResponse(Contenido contenido) {
     this.Id = contenido.getId();
-    this.id_categoria = contenido.getId_categoria();
     this.titulo = contenido.getTitulo();
     this.autor = contenido.getAutor();
     this.genero = contenido.getGenero();
