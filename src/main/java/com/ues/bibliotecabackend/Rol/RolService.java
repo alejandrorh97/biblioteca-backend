@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 public class RolService {
   private final RolRepository rolRepository;
 
-  public List<RolResponse> findAll(String busqueda) throws Exception {
+  public List<RolResponse> findAll() throws Exception {
     ArrayList<RolResponse> roles = new ArrayList<>();
-    rolRepository.findAll().forEach(rol -> new RolResponse(rol));
+    rolRepository.findAll().forEach(rol -> roles.add(new RolResponse(rol)));
     return roles;
   }
 

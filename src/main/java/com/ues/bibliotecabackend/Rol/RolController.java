@@ -5,6 +5,7 @@ import com.ues.bibliotecabackend.Rol.requests.RolCreateRequest;
 import com.ues.bibliotecabackend.Rol.requests.RolIndexRequest;
 import com.ues.bibliotecabackend.Rol.responses.RolResponse;
 import com.ues.bibliotecabackend.global.responses.DeleteResponse;
+import com.ues.bibliotecabackend.security.HasPermission;
 
 import jakarta.validation.Valid;
 import java.util.List;
@@ -25,11 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/roles")
 public class RolController {
+
   private final RolService rolService;
 
   @GetMapping("/all")
+  @HasPermission("roles_all")
   public List<RolResponse> all() throws Exception {
-    return rolService.findAll(null);
+    return rolService.findAll();
   }
 
   @GetMapping("/index")
@@ -63,7 +66,7 @@ public class RolController {
 
   @PostMapping("/attach-permission/{id}")
   public RolResponse attachPermission(@PathVariable Long id,
-    @Valid @RequestBody RolAttachPermissionsRequest request) throws Exception {
+      @Valid @RequestBody RolAttachPermissionsRequest request) throws Exception {
     return null;
   }
 }
