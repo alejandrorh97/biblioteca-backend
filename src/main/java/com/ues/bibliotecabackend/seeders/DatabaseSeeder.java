@@ -15,6 +15,10 @@ public class DatabaseSeeder implements CommandLineRunner {
   private PermisoSeeder permisoSeeder;
   @Autowired
   private RolesPermisosSeeder rolesPermisosSeeder;
+  @Autowired
+  private CategoriasSeeder categoriasSeeder;
+  @Autowired
+  private ContenidoSeeder contenidoSeeder;
 
   @Override
   public void run(String... args) throws Exception {
@@ -22,6 +26,8 @@ public class DatabaseSeeder implements CommandLineRunner {
     usuarioSeeder.run();
     permisoSeeder.run();
     rolesPermisosSeeder.run();
+    categoriasSeeder.run();
+    contenidoSeeder.run();
   }
 
 }

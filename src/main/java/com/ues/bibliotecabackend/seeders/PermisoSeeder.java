@@ -29,6 +29,10 @@ public class PermisoSeeder {
     permisos.add(new Permiso("usuarios_update"));
     permisos.add(new Permiso("usuarios_delete"));
     permisos.add(new Permiso("roles_all"));
+    permisos.add(new Permiso("contenidos_index"));
+    permisos.add(new Permiso("contenidos_show"));
+    permisos.add(new Permiso("contenidos_update"));
+    permisos.add(new Permiso("contenidos_delete"));
     return permisos;
   }
 

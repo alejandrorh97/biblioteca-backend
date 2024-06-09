@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS contenidos (
 
 -- Crear tabla inventario
 CREATE TABLE IF NOT EXISTS inventario (
+    id SERIAL PRIMARY KEY,
     id_contenido INT REFERENCES contenidos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     unidades_registradas INT NOT NULL CHECK (unidades_registradas > 0),
     unidades_disponibles INT NOT NULL CHECK (unidades_disponibles >= 0)
@@ -111,6 +112,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 -- Crear tabla faltas
 CREATE TABLE IF NOT EXISTS faltas (
+    id SERIAL PRIMARY KEY,
     id_usuario INT REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     id_falta INT REFERENCES tipos_faltas(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );

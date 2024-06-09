@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Contenido {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +39,6 @@ public class Contenido {
   @JoinColumn(name = "id_categoria")
   private Categoria categoria;
 
-  @OneToOne(mappedBy = "inventario")
+  @OneToOne(mappedBy = "contenido")
   private Inventario inventario;
 }

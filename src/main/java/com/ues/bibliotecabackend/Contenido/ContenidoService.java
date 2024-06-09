@@ -1,8 +1,12 @@
 package com.ues.bibliotecabackend.Contenido;
 
 import com.ues.bibliotecabackend.Contenido.responses.ContenidoResponse;
+import com.ues.bibliotecabackend.Inventario.Inventario;
+import com.ues.bibliotecabackend.Categoria.Categoria;
 import com.ues.bibliotecabackend.Contenido.responses.ContenidoIndexResponse;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -51,5 +55,17 @@ public class ContenidoService {
   public boolean delete(Long id) throws EntityNotFoundException {
     contenidoRepository.deleteById(id);
     return true;
+  }
+
+  @Transactional
+  public Contenido saveCategoria(Contenido entity, Categoria categoria) {
+    entity.setCategoria(categoria);
+    return contenidoRepository.save(entity);
+  }
+
+  @Transactional
+  public Contenido saveInventario(Contenido entity, Inventario inventario) {
+    entity.setInventario(inventario);
+    return contenidoRepository.save(entity);
   }
 }

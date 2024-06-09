@@ -13,13 +13,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categorias_contenido")
+@Table(name = "categorias_contenidos")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Categoria {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   private String nombre;
   private String descripcion;
 

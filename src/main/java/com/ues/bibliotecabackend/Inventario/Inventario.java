@@ -3,6 +3,9 @@ package com.ues.bibliotecabackend.Inventario;
 import com.ues.bibliotecabackend.Contenido.Contenido;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -16,6 +19,9 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Inventario {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   int unidadesRegistradas;
   int unidadesDisponibles;
 
