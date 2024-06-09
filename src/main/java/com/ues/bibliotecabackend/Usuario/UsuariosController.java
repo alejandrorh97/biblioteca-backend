@@ -1,25 +1,25 @@
 package com.ues.bibliotecabackend.Usuario;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.ues.bibliotecabackend.Usuario.requests.UsuarioIndexRequest;
 import com.ues.bibliotecabackend.Usuario.requests.UsuarioUpdate;
 import com.ues.bibliotecabackend.Usuario.responses.UsuarioIndexResponse;
 import com.ues.bibliotecabackend.Usuario.responses.UsuarioResponse;
 import com.ues.bibliotecabackend.global.responses.DeleteResponse;
 import com.ues.bibliotecabackend.security.HasPermission;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,10 +29,14 @@ public class UsuariosController {
 
   @GetMapping("/index")
   @HasPermission("usuarios_index")
-  public Page<UsuarioIndexResponse> index(@Valid UsuarioIndexRequest request) throws Exception {
-    System.out.println("INDEX");
-    final Pageable paginacion = PageRequest.of(request.getPage(), request.getSize());
-    return usuarioService.paginate(request.getBusqueda(), paginacion);
+  public Page<UsuarioIndexResponse> index(@RequestParam Map<String, String> request) throws Exception {
+    int page = request.get("page") != null ? Integer.parseInt(request.get("page")) : 0;
+    int size = request.get("size") != null ? Integer.parseInt(request.get("size")) : 10;
+    int rol = request.get("rol") != null ? Integer.parseInt(request.get("rol")) : 0;
+    String busqueda = request.get("busqueda") != null ? request.get("busqueda") : "";
+    
+    Pageable paginacion = PageRequest.of(page, size);
+    return usuarioService.paginate(busqueda, rol, paginacion);
   }
 
   @GetMapping("/show/{id}")

@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +19,11 @@ public class UsuarioService {
     throw new UnsupportedOperationException("No se implementara por tamano de la tabla");
   }
 
-  public Page<UsuarioIndexResponse> paginate(String busqueda, Pageable paginacion) throws Exception {
+  public Page<UsuarioIndexResponse> paginate(String busqueda, int rol, Pageable paginacion) throws Exception {
     try {
-      Page<Usuario> usuarios = busqueda != null ? usuarioRepository.busqueda(busqueda, paginacion)
-          : usuarioRepository.findAll(paginacion);
-      return usuarios.map(UsuarioIndexResponse::new);
+      Specification<Usuario> especificacion = Specification.where(UsuarioSpec.withBusqueda(busqueda))
+          .and(UsuarioSpec.hasRol(rol));
+      return usuarioRepository.findAll(especificacion, paginacion).map(UsuarioIndexResponse::new);
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
@@ -35,7 +36,7 @@ public class UsuarioService {
   }
 
   public Usuario findEntityById(Long id) throws EntityNotFoundException {
-   return usuarioRepository.findById(id)
+    return usuarioRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Usuario con id " + id + " no encontrado"));
   }
 
